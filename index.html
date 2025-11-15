@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CountdownPro - 活动倒计时</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 设置面板 -->
+        <div class="settings-panel" id="settingsPanel">
+            <h2>倒计时设置</h2>
+            <div class="form-group">
+                <label for="eventTitle">活动标题：</label>
+                <input type="text" id="eventTitle" placeholder="例如：产品发布会" value="活动开始">
+            </div>
+            <div class="form-group">
+                <label for="targetDate">目标日期：</label>
+                <input type="date" id="targetDate">
+            </div>
+            <div class="form-group">
+                <label for="targetTime">目标时间：</label>
+                <input type="time" id="targetTime" value="00:00">
+            </div>
+            <div class="form-group">
+                <label for="endMessage">结束消息：</label>
+                <input type="text" id="endMessage" placeholder="例如：活动已开始！" value="🎉 活动已开始！">
+            </div>
+            <div class="form-group">
+                <label for="themeColor">主题颜色：</label>
+                <div class="color-options">
+                    <button class="color-btn" data-theme="blue" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></button>
+                    <button class="color-btn" data-theme="pink" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"></button>
+                    <button class="color-btn" data-theme="green" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"></button>
+                    <button class="color-btn" data-theme="orange" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"></button>
+                    <button class="color-btn" data-theme="purple" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%)"></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bgStyle">背景样式：</label>
+                <select id="bgStyle">
+                    <option value="gradient">渐变色</option>
+                    <option value="particles">粒子动画</option>
+                    <option value="waves">波浪动画</option>
+                </select>
+            </div>
+            <button class="btn-start" id="startBtn">开始倒计时</button>
+        </div>
+
+        <!-- 倒计时显示 -->
+        <div class="countdown-display" id="countdownDisplay" style="display: none;">
+            <button class="btn-settings" id="backBtn">⚙️ 设置</button>
+
+            <h1 class="event-title" id="displayTitle">活动开始</h1>
+
+            <div class="countdown-container">
+                <div class="time-unit">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span id="days">00</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <span id="days-back">00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label">天</div>
+                </div>
+
+                <div class="separator">:</div>
+
+                <div class="time-unit">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span id="hours">00</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <span id="hours-back">00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label">时</div>
+                </div>
+
+                <div class="separator">:</div>
+
+                <div class="time-unit">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span id="minutes">00</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <span id="minutes-back">00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label">分</div>
+                </div>
+
+                <div class="separator">:</div>
+
+                <div class="time-unit">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span id="seconds">00</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <span id="seconds-back">00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label">秒</div>
+                </div>
+            </div>
+
+            <div class="end-message" id="endMessageDisplay" style="display: none;"></div>
+        </div>
+
+        <!-- 背景动画容器 -->
+        <canvas id="particlesCanvas"></canvas>
+        <div class="waves-container" id="wavesContainer" style="display: none;">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">
+                <defs>
+                    <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="wave-parallax">
+                    <use href="#wave" x="50" y="0" fill="rgba(255,255,255,0.1)" />
+                    <use href="#wave" x="50" y="3" fill="rgba(255,255,255,0.2)" />
+                    <use href="#wave" x="50" y="6" fill="rgba(255,255,255,0.3)" />
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

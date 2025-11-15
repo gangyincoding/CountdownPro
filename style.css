@@ -1,0 +1,497 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --text-color: #ffffff;
+    --bg-overlay: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-y: auto;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--primary-gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px 0;
+}
+
+/* 背景动画 */
+#particlesCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.waves-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.waves {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 15vh;
+    min-height: 100px;
+}
+
+.wave-parallax > use {
+    animation: wave-move 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+.wave-parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.wave-parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+
+.wave-parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+
+@keyframes wave-move {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+
+/* 设置面板 */
+.settings-panel {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    max-height: 90vh;
+    width: 90%;
+    animation: fadeInUp 0.6s ease;
+    overflow-y: auto;
+}
+
+.settings-panel h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #555;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.color-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.color-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.color-btn:hover {
+    transform: scale(1.1);
+}
+
+.color-btn.active {
+    border-color: #333;
+    transform: scale(1.1);
+}
+
+.btn-start {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-top: 5px;
+}
+
+.btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-start:active {
+    transform: translateY(0);
+}
+
+/* 倒计时显示 */
+.countdown-display {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    animation: fadeInUp 0.6s ease;
+}
+
+.btn-settings {
+    position: absolute;
+    top: -60px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-settings:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.event-title {
+    color: var(--text-color);
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: titlePulse 2s ease infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* 倒计时容器 */
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flip-card {
+    position: relative;
+    width: 100px;
+    height: 120px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flip .flip-card-inner {
+    transform: rotateX(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.flip-card-front span,
+.flip-card-back span {
+    font-size: 56px;
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.flip-card-back {
+    transform: rotateX(180deg);
+}
+
+.separator {
+    font-size: 56px;
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: blink 1s ease infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.label {
+    margin-top: 12px;
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 结束消息 */
+.end-message {
+    margin-top: 40px;
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: endMessageAnimation 1s ease;
+}
+
+@keyframes endMessageAnimation {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .settings-panel {
+        padding: 20px 18px;
+    }
+
+    .settings-panel h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .event-title {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+    .flip-card {
+        width: 70px;
+        height: 90px;
+    }
+
+    .flip-card-front span,
+    .flip-card-back span {
+        font-size: 40px;
+    }
+
+    .separator {
+        font-size: 40px;
+    }
+
+    .label {
+        font-size: 15px;
+        margin-top: 8px;
+    }
+
+    .countdown-container {
+        gap: 10px;
+    }
+
+    .btn-settings {
+        top: -50px;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .end-message {
+        font-size: 28px;
+        margin-top: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-panel {
+        padding: 18px 15px;
+    }
+
+    .settings-panel h2 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .event-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .flip-card {
+        width: 58px;
+        height: 72px;
+    }
+
+    .flip-card-front span,
+    .flip-card-back span {
+        font-size: 30px;
+    }
+
+    .separator {
+        font-size: 30px;
+    }
+
+    .label {
+        font-size: 13px;
+        margin-top: 6px;
+    }
+
+    .countdown-container {
+        gap: 6px;
+    }
+
+    .end-message {
+        font-size: 22px;
+        margin-top: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .color-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .btn-start {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* 主题颜色变量 */
+[data-theme="blue"] {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+[data-theme="pink"] {
+    --primary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+[data-theme="green"] {
+    --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+[data-theme="orange"] {
+    --primary-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+[data-theme="purple"] {
+    --primary-gradient: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
